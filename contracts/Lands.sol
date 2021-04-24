@@ -10,10 +10,10 @@ contract Lands {
         uint256 ammount;
     }
     mapping(uint256 => Land) public lands;
-    mapping(address => Land) public landsByAddress;
+ //   mapping(address => Land) public landsByAddress;
     uint256 public landsCounter;
 
-    // mapping (address => mapping (uint => Land)) public landsByAddress;
+     mapping (address => mapping (uint => Land)) public landsByAddress;
 
     constructor() public {
         landsCounter = 0;
@@ -29,7 +29,7 @@ contract Lands {
         landsCounter++;
         lands[landsCounter] = Land(_municipal, _id, _from, _to, _ammount);
 
-        landsByAddress[_municipal] = Land(
+        landsByAddress[_municipal][landsCounter] = Land(
             _municipal,
             _id,
             _from,
@@ -50,16 +50,16 @@ contract Lands {
             uint256
         )
     {
-        // for (uint256 i = 1; i < landsCounter; i++) {
-        //     if (lands[i].municipal == _municipal) {
+        for (uint256 i = 1; i < landsCounter; i++) {
+            if (landsByAddress[_municipal][i].municipal == _municipal) {
                 return (
-                    landsByAddress[_municipal].municipal,
-                    landsByAddress[_municipal].id,
-                    landsByAddress[_municipal].from,
-                    landsByAddress[_municipal].to,
-                    landsByAddress[_municipal].ammount
+                    landsByAddress[_municipal][i].municipal,
+                    landsByAddress[_municipal][i].id,
+                    landsByAddress[_municipal][i].from,
+                    landsByAddress[_municipal][i].to,
+                    landsByAddress[_municipal][i].ammount
                 );
-        //     }
-        // }
+            }
+        }
     }
 }
