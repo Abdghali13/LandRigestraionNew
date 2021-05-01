@@ -68,15 +68,24 @@ class App extends Component {
   displayAssets = async () => {
     const { accounts, contract } = this.state;
    // const res = await contract.methods.getContractByAddress(accounts[0]).call();
-    const res = await contract.methods.landsByAddress(accounts[0],1);
+   const counterLenght = await contract.methods.landsCounter().call();
+   console.log("The Lenght is : " ); 
+   console.log(counterLenght);
+  let assetHTML;
+   for(let index=0; index< counterLenght; index++){
+    const res = await contract.methods.landsByAddress(accounts[0],index).call();
+    console.log("The result is : " ); 
     console.log(res); 
-    // let assetHTML = '<tr><td>' + res[0] + '</td><td>'
-    //   + res[1] + '</td><td>'
-    //   + res[2] + '</td><td>'
-    //   + res[3] + '</td><td>'
-    //   + res[4] + '"</td></tr>';
+     assetHTML += '<tr><td>' + res[0]+ '</td><td>'
+      + res[1] + '</td><td>'
+      + res[2] + '</td><td>'
+      + res[3] + '</td><td>'
+      + res[4] + '</td></tr>';
    
-    // this.setState({asset_html:assetHTML});
+    this.setState({asset_html:assetHTML});
+   } 
+   
+
   }
   render() {
     if (!this.state.web3) {
@@ -128,7 +137,7 @@ class App extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {/* {parse(this.state.asset_html)} */}
+                  {parse(this.state.asset_html)}
                 </tbody>
               </table>
             </div>
