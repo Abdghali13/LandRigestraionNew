@@ -68,11 +68,11 @@ class App extends Component {
   displayAssets = async () => {
     const { accounts, contract } = this.state;
    // const res = await contract.methods.getContractByAddress(accounts[0]).call();
-   const counterLenght = await contract.methods.landsCounter().call();
+   const counterLenght = await contract.methods.CounterByAddress(accounts[0]).call();
    console.log("The Lenght is : " ); 
    console.log(counterLenght);
   let assetHTML;
-   for(let index=0; index< counterLenght; index++){
+   for(let index=1; index<= counterLenght; index++){
     const res = await contract.methods.landsByAddress(accounts[0],index).call();
     console.log("The result is : " ); 
     console.log(res); 

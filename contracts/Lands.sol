@@ -12,8 +12,8 @@ contract Lands {
     mapping(uint256 => Land) public lands;
  //   mapping(address => Land) public landsByAddress;
     uint256 public landsCounter;
-
-     mapping (address => mapping (uint => Land)) public landsByAddress;
+    mapping(address => uint256) public CounterByAddress;
+    mapping (address => mapping (uint => Land)) public landsByAddress;
 
     constructor() public {
         landsCounter = 0;
@@ -27,9 +27,10 @@ contract Lands {
         uint256 _ammount
     ) public {
         landsCounter++;
+        CounterByAddress[_municipal]++;
         lands[landsCounter] = Land(_municipal, _id, _from, _to, _ammount);
 
-        landsByAddress[_municipal][landsCounter] = Land(
+        landsByAddress[_municipal][CounterByAddress[_municipal]] = Land(
             _municipal,
             _id,
             _from,
