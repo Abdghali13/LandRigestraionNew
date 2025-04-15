@@ -72,7 +72,7 @@ npm run start
 
 ## System Architecture  
 ![System Diagram](docs/architecture-diagram.png)  
-*(Include your architecture diagram path here)*  
+ 
 
 ---
 
